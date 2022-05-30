@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+    background-color: white;
+}
+
+#comment textarea {
+    vertical-align: text-top;
+    min-width: 620px;
+    max-width: 620px;
+    min-height: 100px;
+    max-height: 450px;
+}

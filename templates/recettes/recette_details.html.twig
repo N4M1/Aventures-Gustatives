@@ -1,0 +1,80 @@
+{# Template général de la page #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Recette | Titre{% endblock %}
+
+{# Ici vous mettez vos codes HTML et balises Twig au besoin #}
+{% block body %}
+
+    <!-- Section posts -->
+    <div class="w-1/3 m-auto">
+        <div class="rounded border w-full bg-white mx-3 md:mx-0 lg:mx-0">
+            <div class="pt-2">
+                <span class="text-sm text-gray-400 font-medium fa fa-user"> {{ article.idUser.pseudo }} •</span>
+                <span class="text-sm text-gray-400 font-medium"> {{ article.creationDate|date("m/d/Y") }}•</span>
+                <span class="text-sm text-gray-400 font-medium">{{ article.categorie }}</span>
+            </div>
+            <div class="mb-2 text-sm">
+                <h1 class="font-medium mr-2">{{ article.title }}</h1>
+
+            </div>
+
+            <img class="max-h-screen bg-cover" src="{{ asset('imgs/bruschetta.jpg')}}">
+            <div class="px-3 pb-2">
+                <div class="pt-1">
+                    <div class="my-6 text-sm">
+                        <p>{{ article.description}}</p>
+
+                        <hr class="mt-2">
+
+                    </div>
+                </div>
+                <div class="text-xs mb-2 cursor-pointer font-medium fas fa-comment-alt fa fa-envelope"> {{ article.commentaires|length}} commentaires</div>
+                {% for commentaires in commentaire %}
+                    <p class="text-gray-500">Rédigé par {{ commentaires.idUser.pseudo }}, le {{ commentaires.creationDate|date("m/d/Y H:i:s") }}</p>
+                    <p class="text-sm mt-2">{{ commentaires.content }}</p>
+                    <hr class="my-2">
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if is_granted('ROLE_USER') %}
+            <div id="comment" class="mt-5 mb-5">
+                {{ form_start(form) }}
+                {{ form_row(form.content, {'attr': {'placeholder': 'Entrer un commentaire'}}) }}
+                <br>
+                <div class="flex justify-center">
+                    <button class="border-2 bg-button-green" style="padding: 8px 80px; color: white" type="submit">Envoyer</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        {% else %}
+            <div>
+                <a href="{{ path('app_login') }}"> Connectez-vous pour écrire un commentaire</a>
+            </div>
+        {% endif %}
+
+        <h1>Recettes récentes</h1>
+        <hr class="mb-4 mt-3">
+        <div class=" flex justify-between">
+            {% for article in threelast %}
+                <div class="mr-3">
+                    <img class="w-full bg-cover" src="{{ asset('imgs/bruschetta.jpg')}}">
+                    <div class="px-3 pb-2">
+                        <div class="pt-1">
+                            <div class="mb-2 text-sm">
+                                <h1 class="font-medium mr-2">{{ article.title }}</h1>
+                                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis; max-width: 20ch">{{ article.description}}</p>
+                                <a href="{{ path('app_recettes_details', {'id': article.id}) }}">
+                                    <button class="w-full bg-button-green mt-2 py-2 text-white">Voir la recette</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

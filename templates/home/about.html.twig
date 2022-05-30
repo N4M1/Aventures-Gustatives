@@ -1,0 +1,31 @@
+{# Template général de la page #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Aventures Gustatives | A propos{% endblock %}
+
+{# Ici vous mettez vos codes HTML et balises Twig au besoin #}
+{% block body %}
+
+    <div class="m-auto max-w-6xl flex justify-between mb-52">
+
+        <section class="w-1/2 mr-10">
+            <img class="object-fill bg-cover" src="{{ asset('imgs/bruschetta.jpg')}}">
+        </section>
+
+        <section class="w-1/2">
+            <h3 class="italic text-lg">Bonjour</h3>
+            <hr class="w-6 mt-2 my-3 text-black">
+
+            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias corporis, culpa cumque dolore doloribus,
+                eaque est, eum ex facere inventore perspiciatis quisquam reiciendis saepe sapiente tempore totam voluptatibus.
+                A, aliquam aliquid consectetur dicta, dolore et fuga illum molestiae nihil placeat qui quo repudiandae sapiente sint soluta sunt veritatis, vero voluptas.</p>
+        </section>
+
+
+    </div>
+
+
+
+
+{% endblock %}
